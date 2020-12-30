@@ -8,7 +8,6 @@ use FluentForm\Framework\Foundation\Application;
 
 class Bootstrap extends IntegrationManager
 {
-
     private $key = FFDROPBOX_INT_KEY;
     public function __construct(Application $app)
     {
@@ -23,7 +22,7 @@ class Bootstrap extends IntegrationManager
 
         $this->logo = FFDROPBOX_URL . 'assets/dropbox.png';
 
-        $this->description = 'Connect Dropbox with FluentForm. Upload files directly to Dropbox from your forms. Option to update database with shared file link & delete files from your server';
+        $this->description = 'Connect Dropbox with FluentForm. Upload files directly to Dropbox from your forms. Option to update database with shared file link & delete files from your server to free up space.';
 
         $this->registerAdminHooks();
 
@@ -62,17 +61,17 @@ class Bootstrap extends IntegrationManager
         $api = new API();
         return [
             'logo'             => $this->logo,
-            'menu_title'       => __('DemoIntegration Settings', 'fluentformpro'),
-            'menu_description' => __($this->description,'fluentformpro'),
+            'menu_title'       => __(ucfirst($this->key).' Integration Settings', 'fluentformpro'),
+            'menu_description' => __('Copy the '.ucfirst($this->key).' Access Code from other window and paste it here, then click on Verify Code button.','fluentformpro'),
             'valid_message'    => __('Your '.ucfirst ($this->key).' API Key is valid', 'fluentformpro'),
             'invalid_message'  => __('Your '.ucfirst ($this->key).' API Key is not valid', 'fluentformpro'),
             'save_button_text' => __('Save Settings', 'fluentformpro'),
             'fields'           => [
                 'apiKey' => [
                     'type'        => 'text',
-                    'placeholder' => 'API Key',
-                    'label_tips'  => __("Enter your DemoIntegration API Key, if you do not have <br>Please login to your DemoIntegration account and go to<br>Profile -> Account Settings -> Account Info", 'fluentformpro'),
-                    'label'       => __(ucfirst ($this->key).' API Key', 'fluentformpro'),
+                    'placeholder' => 'Access Code',
+                    'label_tips'  => __("Enter your  ".ucfirst($this->key)." Access Key, Copy the Access Code from other window and paste it here, then click on Verify Code button", 'fluentformpro'),
+                    'label'       => __(ucfirst ($this->key).' Access Code', 'fluentformpro'),
                 ],
                 'button_link' => [
                     'type'  => 'link',

@@ -1,0 +1,8 @@
+{
+    "require": {
+        "google/apiclient": "^2.10"
+    },
+    "autoload": {
+        "psr-4": {"FFexternalFileUpload\\": "classes/"}
+    }
+}

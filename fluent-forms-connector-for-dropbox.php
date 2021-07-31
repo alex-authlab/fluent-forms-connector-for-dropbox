@@ -32,8 +32,9 @@ defined('ABSPATH') or die;
 define('FFDROPBOX_DIR', plugin_dir_path(__FILE__));
 define('FFDROPBOX_URL', plugin_dir_url(__FILE__));
 define('FFDROPBOX_INT_KEY', 'dropbox');
+define('FFGDRIVE_INT_KEY', 'googledrive');
 
-class FluentFormDropbox
+class FFexternalFileUpload
 {
 
     public function boot()
@@ -53,15 +54,17 @@ class FluentFormDropbox
 
     protected function includeFiles()
     {
-        include_once FFDROPBOX_DIR . 'Integrations/Bootstrap.php';
-        include_once FFDROPBOX_DIR . 'Integrations/API.php';
+//        include_once FFDROPBOX_DIR . 'DropboxIntegration/Bootstrap.php';
+//        include_once FFDROPBOX_DIR . 'DropboxIntegration/API.php';
+        require_once 'vendor/autoload.php';
     }
 
     protected function registerHooks($fluentForm)
     {
        
-       new \FluentFormDropbox\Integrations\Bootstrap( $fluentForm );
-       
+       new \FFexternalFileUpload\DropboxIntegration\Bootstrap( $fluentForm );
+       new FFexternalFileUpload\GoogleDrive\Bootstrap( $fluentForm );
+
     }
     
     /**
@@ -127,9 +130,10 @@ register_activation_hook(__FILE__, function () {
     }
 
     $globalModules[FFDROPBOX_INT_KEY] = 'yes';
+    $globalModules[FFGDRIVE_INT_KEY] = 'yes';
     update_option('fluentform_global_modules_status', $globalModules);
 });
 
 add_action('plugins_loaded', function () {
-    (new FluentFormDropbox())->boot();
+    (new FFexternalFileUpload())->boot();
 });

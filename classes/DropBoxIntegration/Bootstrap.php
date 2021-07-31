@@ -1,6 +1,6 @@
 <?php
 
-namespace FluentFormDropbox\Integrations;
+namespace FFexternalFileUpload\DropboxIntegration;
 
 use FluentForm\App\Services\Integrations\IntegrationManager;
 use FluentForm\Framework\Foundation\Application;

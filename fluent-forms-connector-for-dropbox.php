@@ -33,7 +33,6 @@ define('FFDROPBOX_DIR', plugin_dir_path(__FILE__));
 define('FFDROPBOX_URL', plugin_dir_url(__FILE__));
 define('FFDROPBOX_INT_KEY', 'dropbox');
 define('FFGDRIVE_INT_KEY', 'googledrive');
-
 class FFexternalFileUpload
 {
 
@@ -56,14 +55,14 @@ class FFexternalFileUpload
     {
 //        include_once FFDROPBOX_DIR . 'DropboxIntegration/Bootstrap.php';
 //        include_once FFDROPBOX_DIR . 'DropboxIntegration/API.php';
-        require_once 'vendor/autoload.php';
+        require_once FFDROPBOX_DIR .'vendor/autoload.php';
     }
 
     protected function registerHooks($fluentForm)
     {
        
-       new \FFexternalFileUpload\DropboxIntegration\Bootstrap( $fluentForm );
-       new FFexternalFileUpload\GoogleDrive\Bootstrap( $fluentForm );
+       new \FFexternalFileUpload\Integrations\DropboxIntegration\Bootstrap( $fluentForm );
+       new \FFexternalFileUpload\Integrations\GoogleDrive\Bootstrap( $fluentForm );
 
     }
     
@@ -83,7 +82,7 @@ class FFexternalFileUpload
                 $install_url_text = 'Click Here to Activate the Plugin';
             }
 
-            $message = 'FluentForm MailPoet Add-On Requires Fluent Forms Add On Plugin, <b><a href="' . $pluginInfo->url
+            $message = 'FluentForm External File Upload Add-On Requires Fluent Forms Add On Plugin, <b><a href="' . $pluginInfo->url
                 . '">' . $install_url_text . '</a></b>';
 
             printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $message);

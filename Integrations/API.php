@@ -1,6 +1,6 @@
 <?php
 
-namespace FFexternalFileUpload\DropboxIntegration;
+namespace FluentFormDropbox\Integrations;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -118,9 +118,9 @@ class API
     
     
     public function getAUthUrl(){
-
+        
         return 'https://www.dropbox.com/oauth2/authorize?client_id='.$this->apiKey.'&token_access_type=offline&response_type=code';
-
+        
     }
     
     

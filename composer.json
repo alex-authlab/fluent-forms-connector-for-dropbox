@@ -3,6 +3,6 @@
         "google/apiclient": "^2.10"
     },
     "autoload": {
-        "classmap": ["./Integrations/"]
+        "psr-4": {"FFexternalFileUpload\\": "classes/"}
     }
 }

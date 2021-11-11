@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Fluent Forms Connector for Dropbox
+ * Plugin Name: Fluent Forms Connector for Dropbox & Google Drive
  * Plugin URI:  #
- * Description: Connect Fluent Forms with Dropbox.
- * Author: WPManageNinja Support Team
+ * Description: Connect Fluent Forms with Dropbox & Google Drive.
+ * Author: Lukman Nakib
  * Author URI:  #
  * Version: 1.0.0
- * Text Domain: FFDROPBOX
+ * Text Domain: ff-dropbox-gdrive
  */
 
 /**
@@ -33,13 +33,13 @@ define('FFDROPBOX_DIR', plugin_dir_path(__FILE__));
 define('FFDROPBOX_URL', plugin_dir_url(__FILE__));
 define('FFDROPBOX_INT_KEY', 'dropbox');
 define('FFGDRIVE_INT_KEY', 'googledrive');
+define('FF_DROPBOX_GDRIVE_TEXTDOM', 'ff-dropbox-gdrive');
 class FFexternalFileUpload
 {
 
     public function boot()
     {
-    
-    
+
         if (!defined('FLUENTFORM')) {
             return $this->injectDependency();
         }

@@ -1,8 +1,16 @@
 {
+    "autoload": {
+        "classmap": ["./Integrations/"]
+    },
     "require": {
         "google/apiclient": "^2.10"
     },
-    "autoload": {
-        "classmap": ["./Integrations/"]
+    "extra": {
+        "google/apiclient-services": [
+            "Drive"
+        ]
+    },
+    "scripts": {
+        "post-update-cmd": "Google\\Task\\Composer::cleanup"
     }
 }

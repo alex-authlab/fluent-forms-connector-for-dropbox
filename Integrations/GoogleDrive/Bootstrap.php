@@ -24,7 +24,6 @@ class Bootstrap extends IntegrationManager
         $this->logo = FFDROPBOX_URL . 'assets/gdrive.png';
         $this->description = 'Connect Google Drive with FluentForm. Upload files directly to drive from your forms.';
         $this->registerAdminHooks();
-
 //        add_filter('fluentform_notifying_async_' . FFGDRIVE_INT_KEY, '__return_false');
     }
 
@@ -35,7 +34,9 @@ class Bootstrap extends IntegrationManager
             'logo' => $this->logo,
             'is_active' => $this->isConfigured(),
             'configure_title' => 'Configuration required!',
-            'global_configure_url' => admin_url('admin.php?page=fluent_forms_settings#general-' . $this->key . '-settings'),
+            'global_configure_url' => admin_url(
+                'admin.php?page=fluent_forms_settings#general-' . $this->key . '-settings'
+            ),
             'configure_message' => $this->key . ' is not configured yet! Please configure your ' . $this->key . ' api first',
             'configure_button_text' => 'Set ' . $this->key
         ];
@@ -58,23 +59,30 @@ class Bootstrap extends IntegrationManager
 
     public function getGlobalFields($fields)
     {
-
         $api = new API();
         return [
             'logo' => $this->logo,
-            'menu_title' => __(ucfirst($this->key) . ' Integration Settings', 'fluentformpro'),
-            'menu_description' => __('Copy the ' . ucfirst($this->key) . ' Access Code from other window and paste it here, then click on Verify Code button.',
-                'fluentformpro'),
-            'valid_message' => __('Your ' . ucfirst($this->key) . ' API Key is valid', 'fluentformpro'),
-            'invalid_message' => __('Your ' . ucfirst($this->key) . ' API Key is not valid', 'fluentformpro'),
-            'save_button_text' => __('Save Settings', 'fluentformpro'),
+            'menu_title' => __(ucfirst($this->key) . ' Integration Settings', FF_DROPBOX_GDRIVE_TEXTDOM),
+            'menu_description' => __(
+                'Copy the ' . ucfirst(
+                    $this->key
+                ) . ' Access Code from other window and paste it here, then click on Verify Code button.',
+                FF_DROPBOX_GDRIVE_TEXTDOM
+            ),
+            'valid_message' => __('Your ' . ucfirst($this->key) . ' API Key is valid', FF_DROPBOX_GDRIVE_TEXTDOM),
+            'invalid_message' => __('Your ' . ucfirst($this->key) . ' API Key is not valid', FF_DROPBOX_GDRIVE_TEXTDOM),
+            'save_button_text' => __('Save Settings', FF_DROPBOX_GDRIVE_TEXTDOM),
             'fields' => [
                 'apiKey' => [
                     'type' => 'text',
                     'placeholder' => 'Access Code',
-                    'label_tips' => __("Enter your  " . ucfirst($this->key) . " Access Key, Copy the Access Code from other window and paste it here, then click on Verify Code button",
-                        'fluentformpro'),
-                    'label' => __(ucfirst($this->key) . ' Access Code', 'fluentformpro'),
+                    'label_tips' => __(
+                        "Enter your  " . ucfirst(
+                            $this->key
+                        ) . " Access Key, Copy the Access Code from other window and paste it here, then click on Verify Code button",
+                        FF_DROPBOX_GDRIVE_TEXTDOM
+                    ),
+                    'label' => __(ucfirst($this->key) . ' Access Code', FF_DROPBOX_GDRIVE_TEXTDOM),
                 ],
                 'button_link' => [
                     'type' => 'link',
@@ -106,12 +114,11 @@ class Bootstrap extends IntegrationManager
             // Update the reCaptcha details with siteKey & secretKey.
             update_option($this->optionKey, $integrationSettings, 'no');
             wp_send_json_success([
-                'message' => __('Your settings has been updated', 'fluentformpro'),
+                'message' => __('Your settings has been updated', FF_DROPBOX_GDRIVE_TEXTDOM),
                 'status' => false
             ], 200);
         }
 
-        // Verify API key now
 
         try {
             $accessCode = sanitize_textarea_field($settings['apiKey']);
@@ -128,7 +135,6 @@ class Bootstrap extends IntegrationManager
             $result['status'] = true;
 
             update_option($this->optionKey, $result, 'no');
-
         } catch (\Exception $exception) {
             wp_send_json_error([
                 'message' => $exception->getMessage()
@@ -136,10 +142,9 @@ class Bootstrap extends IntegrationManager
         }
 
         wp_send_json_success([
-            'message' => __('Your Google DRIVE api key has been verified and successfully set', 'fluentformpro'),
+            'message' => __('Your Google DRIVE api key has been verified and successfully set', FF_DROPBOX_GDRIVE_TEXTDOM),
             'status' => true
         ], 200);
-
     }
 
     public function getIntegrationDefaults($settings, $formId)
@@ -220,8 +225,6 @@ class Bootstrap extends IntegrationManager
         if ($folders['files']) {
             foreach ($folders['files'] as $folder) {
                 $formattedList[$folder['id']] = $folder['name'];
-
-
             }
         }
 
@@ -236,8 +239,6 @@ class Bootstrap extends IntegrationManager
 
     public function notify($feed, $formData, $entry, $form)
     {
-
-
         $feedData = $feed['processedValues'];
 
         $files = explode(',', $feedData['files']);
@@ -258,7 +259,6 @@ class Bootstrap extends IntegrationManager
         $uploadFolderID = $feedData['list_id'];
 
         if (empty($files) || empty($uploadFolderID)) {
-
             do_action('ff_integration_action_result', $feed, 'failed', 'Missing file and folder path');
             return;
         }
@@ -274,7 +274,6 @@ class Bootstrap extends IntegrationManager
             }
         }
         do_action('ff_integration_action_result', $feed, 'success', 'Drive Upload Success');
-
     }
 
 

@@ -60,19 +60,19 @@ class Bootstrap extends IntegrationManager
         $api = new API();
         return [
             'logo' => $this->logo,
-            'menu_title' => __(ucfirst($this->key) . ' Integration Settings', 'fluentformpro'),
+            'menu_title' => __(ucfirst($this->key) . ' Integration Settings', FF_DROPBOX_GDRIVE_TEXTDOM),
             'menu_description' => __('Copy the ' . ucfirst($this->key) . ' Access Code from other window and paste it here, then click on Verify Code button.',
-                'fluentformpro'),
-            'valid_message' => __('Your ' . ucfirst($this->key) . ' API Key is valid', 'fluentformpro'),
-            'invalid_message' => __('Your ' . ucfirst($this->key) . ' API Key is not valid', 'fluentformpro'),
-            'save_button_text' => __('Save Settings', 'fluentformpro'),
+                FF_DROPBOX_GDRIVE_TEXTDOM),
+            'valid_message' => __('Your ' . ucfirst($this->key) . ' API Key is valid', FF_DROPBOX_GDRIVE_TEXTDOM),
+            'invalid_message' => __('Your ' . ucfirst($this->key) . ' API Key is not valid', FF_DROPBOX_GDRIVE_TEXTDOM),
+            'save_button_text' => __('Save Settings', FF_DROPBOX_GDRIVE_TEXTDOM),
             'fields' => [
                 'apiKey' => [
                     'type' => 'text',
                     'placeholder' => 'Access Code',
                     'label_tips' => __("Enter your  " . ucfirst($this->key) . " Access Key, Copy the Access Code from other window and paste it here, then click on Verify Code button",
-                        'fluentformpro'),
-                    'label' => __(ucfirst($this->key) . ' Access Code', 'fluentformpro'),
+                        FF_DROPBOX_GDRIVE_TEXTDOM),
+                    'label' => __(ucfirst($this->key) . ' Access Code', FF_DROPBOX_GDRIVE_TEXTDOM),
                 ],
                 'button_link' => [
                     'type' => 'link',
@@ -104,7 +104,7 @@ class Bootstrap extends IntegrationManager
             // Update the reCaptcha details with siteKey & secretKey.
             update_option($this->optionKey, $integrationSettings, 'no');
             wp_send_json_success([
-                'message' => __('Your settings has been updated', 'fluentformpro'),
+                'message' => __('Your settings has been updated', FF_DROPBOX_GDRIVE_TEXTDOM),
                 'status' => false
             ], 200);
         }
@@ -134,7 +134,7 @@ class Bootstrap extends IntegrationManager
         }
 
         wp_send_json_success([
-            'message' => __('Your DRIVE api key has been verified and successfully set', 'fluentformpro'),
+            'message' => __('Your DRIVE api key has been verified and successfully set', FF_DROPBOX_GDRIVE_TEXTDOM),
             'status' => true
         ], 200);
 

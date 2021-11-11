@@ -22,8 +22,6 @@ class API
         if (defined('FF_GDRIVE_CLIENT_SECRET')) {
             $this->clientSecret = FF_GDRIVE_CLIENT_SECRET;
         }
-
-
     }
 
     public function generateAccessKey($token)
@@ -89,8 +87,12 @@ class API
         //query for folders
         $parameter = "mimeType='application/vnd.google-apps.folder' and 'root' in parents and trashed=false";
         $endPoint = 'files';
-        return $this->makeRequest($this->baseUrl . $endPoint . '?q=' . $parameter, [], 'GET',
-            $this->getStandardHeader());
+        return $this->makeRequest(
+            $this->baseUrl . $endPoint . '?q=' . $parameter,
+            [],
+            'GET',
+            $this->getStandardHeader()
+        );
     }
 
     private function getStandardHeader()

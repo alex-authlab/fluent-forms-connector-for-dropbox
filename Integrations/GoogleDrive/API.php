@@ -4,7 +4,7 @@ namespace FFexternalFileUpload\Integrations\GoogleDrive;
 
 class API
 {
-    protected $optionKey = '_fluentform_' . FFGDRIVE_INT_KEY . '_settings';
+    protected $optionKey = '_fluentform_GoogleDrive_settings';
     protected $baseUrl = 'https://www.googleapis.com/drive/v3/';
     protected $client;
     protected $service;
@@ -71,6 +71,7 @@ class API
                     $error = $body['error']['message'];
                 }
             }
+            
             return new \WP_Error(423, $error);
         }
 
@@ -156,7 +157,7 @@ class API
         }
         $localPath = wp_upload_dir()['basedir'] . FLUENTFORM_UPLOAD_DIR . '/' . basename($fileName);
         $file = $this->getFile($fileName, $localPath, $parentfileId);
-
+        
         // Getting file into variable
         $fileContent = wp_remote_get($filePath, array(
             'sslverify' => false
@@ -190,7 +191,7 @@ class API
      */
     protected function getFile($fileName, string $localPath, string $parentfileId)
     {
-        $file = new \Google_Service_Drive_DriveFile();
+        $file = new \Google\Service\Drive\DriveFile();
         $file->setName($fileName);
         $file->setDescription('Uploaded by FF');
         $file->setMimeType(mime_content_type($localPath));

@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Fluent Forms Connector for Dropbox & Google Drive
+ * Plugin Name: Fluent Forms Connector for Dropbox
  * Plugin URI:  #
- * Description: Connect Fluent Forms with Dropbox & Google Drive.
- * Author: Lukman Nakib
+ * Description: Connect Fluent Forms with Dropbox.
+ * Author: WPManageNinja Support Team
  * Author URI:  #
  * Version: 1.0.0
- * Text Domain: ff-dropbox-gdrive
+ * Text Domain: FFDROPBOX
  */
 
 /**
@@ -32,14 +32,13 @@ defined('ABSPATH') or die;
 define('FFDROPBOX_DIR', plugin_dir_path(__FILE__));
 define('FFDROPBOX_URL', plugin_dir_url(__FILE__));
 define('FFDROPBOX_INT_KEY', 'dropbox');
-define('FFGDRIVE_INT_KEY', 'googledrive');
-define('FF_DROPBOX_GDRIVE_TEXTDOM', 'ff-dropbox-gdrive');
-class FFexternalFileUpload
+class FluentFormDropbox
 {
 
     public function boot()
     {
-
+    
+    
         if (!defined('FLUENTFORM')) {
             return $this->injectDependency();
         }
@@ -53,17 +52,23 @@ class FFexternalFileUpload
 
     protected function includeFiles()
     {
-//        include_once FFDROPBOX_DIR . 'DropboxIntegration/Bootstrap.php';
-//        include_once FFDROPBOX_DIR . 'DropboxIntegration/API.php';
-        require_once FFDROPBOX_DIR .'vendor/autoload.php';
+        
+        include_once FFDROPBOX_DIR . 'vendor/autoload.php';
+        
+        include_once FFDROPBOX_DIR . 'Integrations/DropBoxIntegration/Bootstrap.php';
+        include_once FFDROPBOX_DIR . 'Integrations/DropBoxIntegration/API.php';
+        
+        include_once FFDROPBOX_DIR . 'Integrations/GoogleDrive/Bootstrap.php';
+        include_once FFDROPBOX_DIR . 'Integrations/GoogleDrive/API.php';
+        
     }
 
     protected function registerHooks($fluentForm)
     {
        
-       new \FFexternalFileUpload\Integrations\DropboxIntegration\Bootstrap( $fluentForm );
-       new \FFexternalFileUpload\Integrations\GoogleDrive\Bootstrap( $fluentForm );
-
+       new \FFexternalFileUpload\Integrations\DropboxIntegration\Bootstrap($fluentForm);
+       new \FFexternalFileUpload\Integrations\GoogleDrive\Bootstrap($fluentForm);
+       
     }
     
     /**
@@ -82,7 +87,7 @@ class FFexternalFileUpload
                 $install_url_text = 'Click Here to Activate the Plugin';
             }
 
-            $message = 'FluentForm External File Upload Add-On Requires Fluent Forms Add On Plugin, <b><a href="' . $pluginInfo->url
+            $message = 'FluentForm MailPoet Add-On Requires Fluent Forms Add On Plugin, <b><a href="' . $pluginInfo->url
                 . '">' . $install_url_text . '</a></b>';
 
             printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $message);
@@ -129,10 +134,10 @@ register_activation_hook(__FILE__, function () {
     }
 
     $globalModules[FFDROPBOX_INT_KEY] = 'yes';
-    $globalModules[FFGDRIVE_INT_KEY] = 'yes';
     update_option('fluentform_global_modules_status', $globalModules);
 });
 
 add_action('plugins_loaded', function () {
-    (new FFexternalFileUpload())->boot();
+    (new FluentFormDropbox())->boot();
 });
+
